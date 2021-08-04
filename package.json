@@ -3,6 +3,9 @@
   "version": "0.0.0",
   "description": "backend",
   "license": "MIT",
+  "engines": {
+    "node": "16.2.0"
+  },
   "files": [
     "lib"
   ],
@@ -14,7 +17,8 @@
     "lint": "tslint --force --format verbose \"src/**/*.ts\"",
     "test": "jest",
     "test:watch": "jest --watch",
-    "dev": "nodemon"
+    "dev": "nodemon",
+    "start": "nodemon"
   },
   "dependencies": {
     "body-parser": "^1.19.0",
