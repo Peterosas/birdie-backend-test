@@ -52,14 +52,14 @@ class BaseModel {
     private _initialize() {
         this.table = this._resolveTableName();
     }
-    protected query(queryStr: string) {
+    protected query(queryStr: string, callback: (res: unknown) => void) {
         const conn = this.getConnection();
         conn.connect(function(err: any) {
             if (err) throw err;
             conn.query(queryStr, function (err: any, result: any) {
               if (err) throw err;
               conn.end();
-              console.log(result)
+              callback(result);
             });
         });
     }
@@ -73,7 +73,7 @@ class BaseModel {
 
         return connection;
     }
-    public get() {
+    public get(callback : (res: unknown) => void) {
         let queryStr = `   
             SELECT ${this.selectedFields} 
             FROM ${this.table} 
@@ -82,7 +82,8 @@ class BaseModel {
         `;
         
         return this.query(
-            queryStr
+            queryStr,
+            callback
         );
     }
     public take(limit: number) {

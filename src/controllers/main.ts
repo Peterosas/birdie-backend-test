@@ -1,17 +1,17 @@
 import * as express from "express";
-import { EventType } from "../constants/EventType";
 import CareEvent from "../models/CareEvent";
 
 export const mainController = express.Router();
 
-mainController.get('/recipients', (_, res) => {
-    const careEvent = new CareEvent("1333444", EventType.ALERT_RAISED, new Date());
-    careEvent
-    .where('caregiver_id', '>', '1')
-    .select(['id']).take(1).get();
-    
-    res.status(200).json({
-        greetings: 'All Recipients'
+mainController.get('/patients', (_, res) => {
+    const careEvent = new CareEvent();
+    careEvent.take(100).get((result) => {
+        res.status(200).json({
+            status: 200,
+            message: "Fetched successfully",
+            data: result
+        });
     });
+
 });
 
